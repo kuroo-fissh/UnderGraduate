@@ -1,6 +1,5 @@
 import React,{useState} from "react";
 import {TopSearchArea} from "../component/Search/TopSearchArea";
-import {Row} from "antd";
 import {JobCard} from "../component/JobCard/JobCard";
 const JobSearchPage = () => {
 	// 任务搜索结果
@@ -33,14 +32,14 @@ const JobSearchPage = () => {
 
 
 	return (
-		<div>
-			<Row>
-				<h2 style={{fontSize: "30px", color: '#4CE3C4',marginLeft:'20px',marginRight:'20px', marginBottom: '3px', fontWeight: 'bold'}}>Under Graduate</h2>
+		<div style={{backgroundColor: "#F2F2F2"}}>
+			<div style={{padding: "10px",boxShadow: "0px 0px 3px #ccc",display:'flex',alignItems:'center',backgroundColor: "#fff"}}>
+				<h2 style={{fontSize: "30px", color: '#4CE3C4',marginLeft:'20px',marginRight:'100px', marginBottom: '3px', fontWeight: 'bold'}}>Under Graduate</h2>
 				<div>
 					<TopSearchArea setSearchResult={setSearchResult}/>
 				</div>
-			</Row>
-			<div>
+			</div>
+			<div style={{padding: "10px 40px"}}>
 				{searchResult.map(item => (
 					<JobCard key={item.id} item={item}/>
 				))}
