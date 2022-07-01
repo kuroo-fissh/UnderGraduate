@@ -20,7 +20,7 @@ export const TopSearchArea = (props) => {
 				"company": "百度",
 				"salary": "10k-20k",
 				"city": "北京",
-				"tag": ["前端", "百度", "北京"],
+				"tags": ["前端", "百度", "北京"],
 			},
 			{
 				"id": "4",
@@ -28,7 +28,7 @@ export const TopSearchArea = (props) => {
 				"company": "百度",
 				"salary": "20k-30k",
 				"city": "北京",
-				"tag": ["前端", "百度", "北京"],
+				"tags": ["前端", "百度", "北京"],
 			},
 		];
 		//值回调给父级
