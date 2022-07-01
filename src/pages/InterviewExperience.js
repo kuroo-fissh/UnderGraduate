@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import '../index.css';
 import reportWebVitals from '../reportWebVitals';
-import 'antd/dist/antd.min.css';
 import { Navigate } from 'react-router-dom';
 import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Divider, Card, Tag, Button,Popconfirm } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
