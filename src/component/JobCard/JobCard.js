@@ -1,17 +1,24 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 import './style.css';
 
 export const JobCard = (props) => {
-
+	const {item: { id,title, company, salary, city, tags}} = props;
+	const URL = "http://localhost:3000/jobDetail/id=" + props.item.id;
 	function jumpToRelatedJob(e) {
 		console.log("dojump");
 		e.preventDefault();
 	}
 
-	// eslint-disable-next-line react/prop-types
-	const {item: { id,title, company, salary, city, tags}} = props;
+	function doJump() {
+		console.log(props.item);
+		window["filter"] = props.item;
+		window.open(URL);
+	}
+
+
 	return (
-		<div>
+		<div onClick={doJump}>
 			<div name={id} className="card-zone">
 				<div className="card-content">
 					<div className="card-title">{title}</div>
@@ -24,7 +31,6 @@ export const JobCard = (props) => {
 			</div>
 			<div className="card-tag">
 				{
-				// eslint-disable-next-line react/prop-types
 					tags.map(item => (
 						<button key={item} className="card-tag-item" onClick={jumpToRelatedJob}>{item}</button>
 					))
