@@ -25,7 +25,7 @@ const JobSearchPage = () => {
 	React.useEffect(() => {
 		// 加载任务搜索结果
 		const showData = async () => {
-			console.log(searchResult);
+			console.log("search result:", searchResult);
 		};
 		showData();
 	}, [searchResult]);
@@ -44,7 +44,6 @@ const JobSearchPage = () => {
 					<JobCard key={item.id} item={item}/>
 				))}
 			</div>
-      
 		</div>
 	);
 };
