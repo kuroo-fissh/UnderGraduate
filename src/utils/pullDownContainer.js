@@ -14,6 +14,16 @@ window.onclick = function(event) {
 			}
 		}
 	}
+	if (!event.target.matches('.text')) {
+		let dropdowns = document.getElementsByClassName("suggest-dropdown-content");
+		let i = 0;
+		for (i = 0; i < dropdowns.length; i++) {
+			let openDropdown = dropdowns[i];
+			if (openDropdown.classList.contains('show')) {
+				openDropdown.classList.remove('show');
+			}
+		}
+	}
 };
 
 export function choose(e) {
