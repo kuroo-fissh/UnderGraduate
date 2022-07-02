@@ -10,7 +10,7 @@ import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Divider} from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import { SettingOutlined } from '@ant-design/icons';
 import { Cascader, Select } from 'antd';
-import { TopSearchArea } from '../component/Search/TopSearchArea';
+import { MainSearchArea } from '../component/MainSearch/MainSearchArea';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -77,6 +77,34 @@ const SearchPage = () => {
 			"salary": "20k-30k",
 			"city": "北京",
 		},
+		{
+			"id": "3",
+			"title": "后端开发工程师",
+			"company": "百度",
+			"salary": "20k-30k",
+			"city": "北",
+		},
+		{
+			"id": "4",
+			"title": "后端开发工程师",
+			"company": "百度",
+			"salary": "20k-30k",
+			"city": "京",
+		},
+		{
+			"id": "5",
+			"title": "端开发工程师",
+			"company": "百度",
+			"salary": "20k-30k",
+			"city": "北京",
+		},
+		{
+			"id": "6",
+			"title": "后端发工程师",
+			"company": "百度",
+			"salary": "20k-30k",
+			"city": "北京",
+		},
 	]);
 
 	React.useEffect(() => {
@@ -100,56 +128,59 @@ const SearchPage = () => {
 				style={sectionStyle}> 
 				
 				<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
-					<Form.Item style={{width : 700, border :1}}>
+					<Form.Item style={{width : 1000, border :1}}>
 						<br/>
 						<br/>
 						<br/>
 						<h1 style={{display : "flex", flexDirection : "row", justifyContent : "center", fontWeight : 'bolder', color : "white", fontSize : "80px"}} >Under Graduate</h1>
 						<Form.Item name="content"
-							style={{display : "flex", flexDirection : "row", justifyContent : "center"}}
-							rules = {[
-								{
-									required : true,
-									message : '请输入搜索内容'
-								},
-							]}>
-							<Search 
+							style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+
+							<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+								<MainSearchArea setSearchResult={setSearchResult} />
+							</div>
+
+							{/* <Search 
 								addonBefore={selectBefore}	
 								placeholder = "What are you looking for..." 
 								enterButton = "搜索"
 								onChange={(e)=>setContent(e.target.value)}
-								onSearch={()=>setCurrent('InterviewExperience')}/>
+								onSearch={()=>setCurrent('InterviewExperience')}/> */}
 						</Form.Item>
 						<br/>
-						<Form.Item>
-							<Row gutter={10}>
-								{searchResult.map(item => (
-									<Col span={9}>
-										<Card sx={{ maxWidth: 700 }}>
-											<CardHeader
-												action={
-													// <IconButton aria-label="settings">
-													// 	<MoreVertIcon />
-													// </IconButton>
-													<Typography sx={{ fontSize: 23 }} color="#FAAD00">
-														{item.salary}
-													</Typography>
-												}
-												title = {
-													<h5>{item.title}</h5>
-												}
-												subheader = {
-													<h5>{item.city + '·' + item.company}</h5>
-												}>
-											</CardHeader>
-											<CardActions>
-												<Button size="small" >learn more</Button>
-											</CardActions>
-										</Card>
-									</Col>
-								))}
-							</Row>
+						<Form.Item style={{padding: "0px 70px"}}> 
+							<div >
+								<Row gutter={15}>
+									{searchResult.map(item => (
+										<Col style={{padding : "20px 20px"}}>
+											<Card sx={{ width: 250 }}>
+												<CardHeader
+													action={
+														// <IconButton aria-label="settings">
+														// 	<MoreVertIcon />
+														// </IconButton>
+														<Typography sx={{ fontSize: 23 }} color="#FAAD00">
+															{item.salary}
+														</Typography>
+													}
+													title = {
+														<h5>{item.title}</h5>
+													}
+													subheader = {
+														<h5>{item.city + '·' + item.company}</h5>
+													}>
+												</CardHeader>
+												<CardActions>
+													<Button size="small" >learn more</Button>
+												</CardActions>
+											</Card>
+											
+										</Col>
+									))}
+								</Row>
+							</div>
 						</Form.Item>
+						
 					</Form.Item>
 				</div>
 				/</Form>
