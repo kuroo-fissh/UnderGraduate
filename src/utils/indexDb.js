@@ -1,6 +1,6 @@
 const jobDbName = 'jobDb';
 const expDbName = 'expDb';
-let returnValue = [];
+let returnValue = [	];
 
 export function createDb(mode){
 	let db = window.indexedDB.open(mode, 1);
@@ -25,21 +25,25 @@ export function addHistory(value) {
 
 
 export function getSearchHistory(mode){
-	let db = null;
-	db = window.indexedDB.open(mode === 1 ? jobDbName : expDbName, 1);
-	returnValue = [];
-	db.onsuccess = function (e) {
-		let db = e.target.result;
-		let transaction = db.transaction(mode === 1 ? 'jobHistory' : 'expHistory', 'readonly');
-		let store = transaction.objectStore(mode === 1 ? 'jobHistory' : 'expHistory');
-		let cursor = store.openCursor();
-		cursor.onsuccess = function (e) {
-			let cursor = e.target.result;
-			if (cursor) {
-				returnValue.push(cursor.value);
-				cursor.continue();
-			}
+	return new Promise((resolve) => {
+		returnValue = [];
+		let db = window.indexedDB.open(mode===1 ? jobDbName : expDbName, 1);
+		db.onsuccess = function (e) {
+			let db = e.target.result;
+			let transaction = db.transaction(mode===1 ? 'jobHistory' : 'expHistory', 'readonly');
+			let store = transaction.objectStore(mode===1 ? 'jobHistory' : 'expHistory');
+			let request = store.openCursor();
+			request.onsuccess = function (e) {
+				let cursor = e.target.result;
+				if (cursor) {
+					if (cursor.value.length > 0) {
+						returnValue.unshift(cursor.value);
+					}
+					cursor.continue();
+				} else {
+					resolve(returnValue);
+				}
+			};
 		};
-	};
-	return returnValue;
+	});
 }
