@@ -15,7 +15,8 @@ function App() {
 				<Route path='/login' element = {<SearchPage/>}/>
 				<Route path='/InterviewExperience' element = {<InterviewExperience/>}/>
 				<Route path='/jobSearch' element={<JobSearchPage />} />
-				<Route path='/jobDetail/:id' element={<JobDetail />} />
+				{/* <Route path='/jobDetail/:id' element={<JobDetail />} /> */}
+				<Route path='/jobDetail' element={<JobDetail />} />
 			</Routes>
 		</BrowserRouter>
 	);
