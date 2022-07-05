@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React,{useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import './style.css';
+import '../Search/style.css';
 import {createDb} from '../../utils/indexDb';
 import {showMenu, choose} from '../../utils/pullDownContainer';
 import {showSearchSueegst, changeSuggestMenu} from '../../utils/searchSuggestContainer';
@@ -47,7 +47,11 @@ export const MainSearchArea = (props) => {
 				<input id="inputArea" autoComplete="off" className="text" onClick={showSearchSueegst} onChange={(e) => setSearchInput(e.target.value)} value={searchInput}></input>
 				<div id="suggestDropdown" className="suggest-dropdown-content"/>
 			</div>
-			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult)}><SearchIcon /></button>
+			<div className="search" id="searchArea">
+				<button id="searchButton" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult)}>
+					<SearchIcon id="searchIcon"/>
+				</button>
+			</div>
 		</div>
 	);
 };

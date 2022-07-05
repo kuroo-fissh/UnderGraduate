@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import '../index.css';
 import reportWebVitals from '../reportWebVitals';
 import { Navigate } from 'react-router-dom';
-import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Divider, Card, Tag, Button,Popconfirm } from 'antd';
+import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Divider, Card, Tag, Button } from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import { FrownOutlined , QuestionCircleOutlined } from '@ant-design/icons';
 import { Cascader, Select } from 'antd';
@@ -13,6 +13,8 @@ import { styled } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
+
+const { Meta } = Card;
 
 const InterviewExperience = () => {
 
@@ -40,6 +42,26 @@ const InterviewExperience = () => {
 			"title": "后端开发工程师",
 			"tags": ["面试经验","Java", "5+"],
 		},
+		{
+			"id": "3",
+			"title": "后端开发工程师",
+			"tags": ["面试经验","Java", "5+"],
+		},
+		{
+			"id": "4",
+			"title": "后端开发工程师",
+			"tags": ["面试经验","Java", "5+"],
+		},
+		{
+			"id": "5",
+			"title": "后端开发工程师",
+			"tags": ["面试经验","Java", "5+"],
+		},
+		{
+			"id": "6",
+			"title": "后端开发工程师",
+			"tags": ["面试经验","Java", "5+"],
+		},
 	]);
 
 	React.useEffect(() => {
@@ -64,12 +86,22 @@ const InterviewExperience = () => {
 				</div>
 			</Row>
 			<Layout>
-				<Row style={{marginTop : '10px', marginLeft: '10px'}} gutter={10}>
+				<Row style={{marginTop : '20px', marginLeft: '20px'}}>
 					{searchResult.map(item => (
-						<Col span={5}>
+						<Col span={6} style={{padding: '10px 10px'}}>
 							<Card
-								title={item.title}
+								cover={
+									<img
+										alt="example"
+										src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+									/>
+								}
+								style={{ width: 300, height: 300 }}
 							>
+								<Meta
+									title={item.title}
+								/>
+								<br/>
 								{item.tags.map(tag => (
 									<Tag color="cyan">{tag}</Tag>))
 								}	

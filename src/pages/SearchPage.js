@@ -6,11 +6,11 @@ import reportWebVitals from '../reportWebVitals';
 import 'antd/dist/antd.min.css';
 import pic from "../image/img.png";
 import { Navigate } from 'react-router-dom';
-import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Divider} from 'antd';
+import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Avatar} from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
-import { SettingOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { Cascader, Select } from 'antd';
-import { MainSearchArea } from '../component/MainSearch/MainSearchArea';
+import { MainSearchArea } from '../component/MainSearch/MainSearchArea.js';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -118,6 +118,25 @@ const SearchPage = () => {
 			console.log("current:",current, "content:",content);
 		};
 		ChangeStatusTmp();
+
+		const changeColor = () => {
+			const modeButtoncolor = document.getElementById("modeButton");
+			modeButtoncolor.style.backgroundColor = "#E29E30";
+			const inputAreacolor = document.getElementById("inputArea");
+			inputAreacolor.style.border = "white";
+			const searchIconcolor = document.getElementById("searchIcon");
+			searchIconcolor.style.color = "#4CE3C4";
+			searchIconcolor.style.backgroundColor = "white";
+			const searchButtoncolor = document.getElementById("searchButton");
+			searchButtoncolor.style.backgroundColor = "white";
+			searchButtoncolor.style.border = "none";
+			searchButtoncolor.style.height = "25px";
+			searchButtoncolor.style.width = "30px";
+			const searchAreacolor = document.getElementById("searchArea");
+			searchAreacolor.style.backgroundColor = "white";
+		};
+		changeColor();
+
 	}, [content], [current]);
 
 	if (current === 'Search') {
@@ -126,8 +145,10 @@ const SearchPage = () => {
 				initialValues={{ remember: true }}
 				autoComplete="off"
 				style={sectionStyle}> 
-				
-				<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+				<div style={{marginLeft: "1350px", padding:"10px"}} onClick = {() => {window.open("http://leetcode.cn/problemset/all/");}}>
+					<Avatar size={50} icon={<UserOutlined />} style = {{backgroundColor: '#87d068'}}/>
+				</div>
+				<div style={{display : "flex", flexDirection : "row", justifyContent : "center", marginTop: "-80px"}}>
 					<Form.Item style={{width : 1000, border :1}}>
 						<br/>
 						<br/>
