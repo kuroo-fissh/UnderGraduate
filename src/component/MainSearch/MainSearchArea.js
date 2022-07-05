@@ -17,11 +17,24 @@ export const MainSearchArea = (props) => {
 	React.useEffect(() => {
 		//这里实现和推荐引擎交互
 		const getData = () => {
-			changeSuggestMenu(['dosuggest']);
-			//获取到插入的button，改名
+			fetch('/complement', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					searchInput: searchInput
+				})
+			}).then(res => res.json())
+				.then(res => {
+					changeSuggestMenu(res.data);
+				})
+				.catch(err => {
+					console.log(err);
+				}
+				);
 			const button = document.getElementById("SuggestFlagButton");
 			button.textContent = '猜您想搜';
-			//setSearchResult([]);
 		};
 	
 		//防抖调用getdata

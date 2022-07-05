@@ -9,6 +9,7 @@ import { doSearch } from '../../utils/searchEngine';
 
 export const TopSearchArea = (props) => {
 	const { setSearchResult } = props;
+	const { setGetToTal } = props;
 	const [searchInput, setSearchInput] = useState('');	
 	createDb('jobDb');
 	createDb('expDb');
@@ -47,7 +48,7 @@ export const TopSearchArea = (props) => {
 				<input id="inputArea" autoComplete="off" className="text" onClick={showSearchSueegst} onChange={(e) => setSearchInput(e.target.value)} value={searchInput}></input>
 				<div id="suggestDropdown" className="suggest-dropdown-content"/>
 			</div>
-			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult)}><SearchIcon /></button>
+			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult,setGetToTal)}><SearchIcon /></button>
 		</div>
 	);
 };
