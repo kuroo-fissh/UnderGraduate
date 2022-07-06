@@ -6,7 +6,8 @@ import {Typography,Grid,Divider,Card, CardActions, Button, CardContent} from '@m
 
 
 const jobDetail = () => {
-	//let receiver = window.opener["filter"];
+	// let receiver = window.opener["filter"];
+	// let id = receiver.id;
 	return (
 		<>
 			{/* <div>
