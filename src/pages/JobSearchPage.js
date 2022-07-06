@@ -26,6 +26,8 @@ const JobSearchPage = () => {
 	]);
 
 	const [getToTal, setGetToTal] = useState(100);
+	const [getNowSize, setGetNowSize] = useState(10);
+	const [getNowPage, setGetNowPage] = useState(1);
 
 	React.useEffect(() => {
 		// 加载任务搜索结果
@@ -42,7 +44,7 @@ const JobSearchPage = () => {
 			<div style={{padding: "10px",boxShadow: "0px 0px 3px #ccc",display:'flex',alignItems:'center',backgroundColor: "#fff"}}>
 				<h2 style={{fontSize: "30px", color: '#4CE3C4',marginLeft:'20px',marginRight:'100px', marginBottom: '3px', fontWeight: 'bold'}}>Under Graduate</h2>
 				<div>
-					<TopSearchArea setSearchResult={setSearchResult} setGetToTal={setGetToTal}/>
+					<TopSearchArea setSearchResult={setSearchResult} setGetToTal={setGetToTal} page={getNowPage} pageSize={getNowSize}/>
 				</div>
 			</div>		
 			<AutoPlay/>			
@@ -52,7 +54,7 @@ const JobSearchPage = () => {
 				))}
 			</div>
 			<div style={{padding: "10px 40px"}}>
-				<TurnPage total={getToTal} setSearchResult={setSearchResult} setGetToTal={setGetToTal}/>
+				<TurnPage setSearchResult={setSearchResult} total={getToTal} setGetToTal={setGetToTal} setGetNowSize={setGetNowSize} setGetNowPage={setGetNowPage}/>
 			</div>
 		</div>
 	);
