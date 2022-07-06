@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React,{useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
-import './style.css';
+import '../Search/style.css';
 import {createDb} from '../../utils/indexDb';
 import {showMenu, choose} from '../../utils/pullDownContainer';
 import {showSearchSueegst, changeSuggestMenu} from '../../utils/searchSuggestContainer';
@@ -17,11 +17,24 @@ export const MainSearchArea = (props) => {
 	React.useEffect(() => {
 		//这里实现和推荐引擎交互
 		const getData = () => {
-			changeSuggestMenu(['dosuggest']);
-			//获取到插入的button，改名
+			fetch('/complement', {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					searchInput: searchInput
+				})
+			}).then(res => res.json())
+				.then(res => {
+					changeSuggestMenu(res.data);
+				})
+				.catch(err => {
+					console.log(err);
+				}
+				);
 			const button = document.getElementById("SuggestFlagButton");
 			button.textContent = '猜您想搜';
-			//setSearchResult([]);
 		};
 	
 		//防抖调用getdata
@@ -47,7 +60,11 @@ export const MainSearchArea = (props) => {
 				<input id="inputArea" autoComplete="off" className="text" onClick={showSearchSueegst} onChange={(e) => setSearchInput(e.target.value)} value={searchInput}></input>
 				<div id="suggestDropdown" className="suggest-dropdown-content"/>
 			</div>
-			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult)}><SearchIcon /></button>
+			<div className="search" id="searchArea">
+				<button id="searchButton" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult)}>
+					<SearchIcon id="searchIcon"/>
+				</button>
+			</div>
 		</div>
 	);
 };
