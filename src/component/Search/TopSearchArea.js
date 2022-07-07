@@ -12,6 +12,9 @@ export const TopSearchArea = (props) => {
 	const { setGetToTal } = props;
 	const { page } = props;
 	const { pageSize } = props;
+	const {selectSalary} = props;
+	const {selectJob} = props;
+	const {selectSchool} = props;
 	const [searchInput, setSearchInput] = useState('');	
 	createDb('jobDb');
 	createDb('expDb');
@@ -53,7 +56,7 @@ export const TopSearchArea = (props) => {
 
 	const checkIfSearch = (e) => {
 		if (e.keyCode === 13) {
-			doSearch(searchInput, setSearchResult, setGetToTal ,page,pageSize);
+			doSearch(searchInput, setSearchResult, setGetToTal ,page,pageSize ,selectSalary,selectJob,selectSchool);
 		}
 	};
 
@@ -67,12 +70,12 @@ export const TopSearchArea = (props) => {
 		const input = urlArray[urlArray.length - 1];
 		//获取input的值
 		const inputArray = input.split('=');
-		const inputValue = inputArray[inputArray.length - 1];
+		const inputValue = decodeURIComponent(inputArray[inputArray.length - 1]);
 		//设置input
-		console.log("inputValue",inputValue);
+		
 		setSearchInput(inputValue);
 		//调用搜索函数
-		doSearch(inputValue, setSearchResult, setGetToTal ,page,pageSize);
+		doSearch(inputValue, setSearchResult, setGetToTal ,page,pageSize,selectSalary,selectJob,selectSchool);
 	}
 	, []);
 
@@ -99,7 +102,7 @@ export const TopSearchArea = (props) => {
 				<input id="inputArea" autoComplete="off" className="text" onKeyDown={checkIfSearch} onClick={showSearchSueegst} onChange={(e) => setSearchInput(e.target.value)} value={searchInput}></input>
 				<div id="suggestDropdown" className="suggest-dropdown-content"/>
 			</div>
-			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult,setGetToTal,page,pageSize)}><SearchIcon /></button>
+			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult,setGetToTal,page,pageSize,selectSalary,selectJob,selectSchool)}> <SearchIcon /></button>
 		</div>
 	);
 };
