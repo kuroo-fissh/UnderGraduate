@@ -7,8 +7,8 @@ export function doSearch(searchInput,setSearchResult,setGetToTal,page,pageSize,s
 		page: page===undefined?1:page,
 		pageSize: pageSize===undefined?10:pageSize,
 		salary: selectSalary===undefined||selectSalary.length===0?['不限']:selectSalary,
-		job: selectJob===undefined||selectSalary.length===0?['不限']:selectJob,
-		school: selectSchool===undefined||selectSalary.length===0?['不限']:selectSchool
+		job: selectJob===undefined||selectJob.length===0?['不限']:selectJob,
+		school: selectSchool===undefined||selectSchool.length===0?['不限']:selectSchool
 	});
 	console.log(body);
 	if (!window.location.pathname.includes('input')) {
