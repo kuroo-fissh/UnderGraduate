@@ -1,16 +1,31 @@
 import React from 'react';
-//import '../index.css';
+//import { useState } from 'react';
+//import axios from "axios";
 import '../component/Details/style.css';
-import { Row} from 'antd';
 import {Grid,Divider,Card, CardActions, Button, CardContent} from '@mui/material';
 import { DetailHeadline } from '../component/Details/DetailHeadline';
 import { DetailRecommendCard } from '../component/DetailRecommendCard/DetailRecommendWork';
-
+// axios.defaults.withCredentials = true;
+// axios.defaults.headers.post["Content-Type"] = "application/json";
 
 
 const jobDetail = () => {
 	// let receiver = window.opener["filter"];
 	// let id = receiver.id;
+	// const id = 100;
+	// useEffect(() => {
+	// 	upload();
+	// });
+	
+	// async function upload() {
+	// 	let res = await axios.post('https://localhost:8000//showTitleInfo GET /'+'id', id);
+	// 	console.log(res);
+	// 	setDetail(res);
+	// 	if (res.length === 0) {
+	// 	  	alert("数据出错，没有相应id的数据！");
+	// 	}
+	// }
+	//const [detail,setDetail]=useState({});
 	const detail = {
 		"id": "1",
 		"title": "前端开发工程师",
@@ -28,6 +43,7 @@ const jobDetail = () => {
 		"requirement": "这里是任职要求",
 		"responsibility": "这里是工作职责",
 	};
+
 	const recommendWork = [
 		{
 			"id": "1",
@@ -46,6 +62,23 @@ const jobDetail = () => {
 		},
 	];
 
+	const recommendEx = [
+		{
+			"id":"1",
+			"title":"java面经",
+			"url":"http://localhost:3000/SearchPage",
+		},
+		{
+			"id":"2",
+			"title":"Python面经",
+			"url":"http://localhost:3000/SearchPage",
+		},
+	];
+
+	function doJumpEx(url) {
+		window.open(url);
+	}
+
 	function doJump() {
 		console.log(detail);
 		window.open(detail.url);
@@ -60,17 +93,29 @@ const jobDetail = () => {
 					<div className='small-head'>
 						职位描述
 					</div>
-					<div className='content-head'>
-						【公司规模】
+					<div style={{marginTop:'15px', marginBottom:'15px'}}>
+						<text className='content-head'>
+							【公司规模】
+						</text>
+						<text className='content'>
+							{detail.corporation_scale}
+						</text>
 					</div>
-					<div className='content'>
-						{detail.corporation_scale}
+					<div style={{marginTop:'15px', marginBottom:'15px'}}>
+						<text className='content-head'>
+							【公司业务范畴】
+						</text>
+						<text className='content'>
+							{detail.business_scope}
+						</text>
 					</div>
-					<div className='content-head'>
-						【公司业务范畴】
-					</div>
-					<div className='content'>
-						{detail.business_scope}
+					<div style={{marginTop:'15px', marginBottom:'15px'}}>
+						<text className='content-head'>
+							【发布时间】
+						</text>
+						<text className='content'>
+							{detail.time}
+						</text>
 					</div>
 					<div className='content-head'>
 						【工作职责】
@@ -90,8 +135,8 @@ const jobDetail = () => {
 					<div className='content'>
 						{detail.requirement}
 					</div>
-					<Button className='link' onClick={doJump}>
-						查看原招聘链接，了解更多~
+					<Button style={{marginLeft:"20px", fontSize:"18px",fontWeight:"350", color:"#00C8AB"}} onClick={doJump}>
+						【查看原招聘链接，了解更多】
 					</Button>
 					
 				</Grid>
@@ -103,48 +148,21 @@ const jobDetail = () => {
 					))}
 					
 					<div className='small-head'>面试经验</div>
-					<Card sx={{ minWidth: 350 , minHeight: 100}} style={{marginLeft:'30px',marginRight:'10px', marginBottom:'15px', backgroundColor:'#EDFCF9'}}>
-						<CardContent>
-							<Row>
-								<div variant="h5" component="div" style={{marginRight:'50px'}}>
-								标题1
+					{recommendEx.map(item =>(
+						<Card key={item.id} sx={{ minWidth: 350 , minHeight: 100}} style={{marginLeft:'30px',marginRight:'10px', marginBottom:'15px', backgroundColor:'#ffffff'}} variant="outlined">
+							<CardContent>
+								<div style={{marginRight:'50px', fontSize:'21px', color:'#595959'}}>
+									{item.title}
 								</div>
-							</Row>
-							<Row>
-								<div variant="body1" style={{marginRight:'10px', marginTop:'20px'}}>关键词1</div>
-								<div variant="body1" style={{marginRight:'10px', marginTop:'20px'}}>·</div>
-								<div variant="body1" style={{marginRight:'10px', marginTop:'20px'}}>关键词2</div>
-							</Row>
-						</CardContent>
-						<CardActions>
-							<Button size="small">了解更多</Button>
-						</CardActions>
-					</Card>
-					<Card sx={{ minWidth: 350 , minHeight: 100}} style={{marginLeft:'30px',marginRight:'10px', marginBottom:'15px', backgroundColor:'#EDFCF9'}}>
-						<CardContent>
-							<Row>
-								<div variant="h5" component="div" style={{marginRight:'50px'}}>
-								标题2
-								</div>
-							</Row>
-							<Row>
-								<div variant="body1" style={{marginRight:'10px', marginTop:'20px'}}>关键词1</div>
-								<div variant="body1" style={{marginRight:'10px', marginTop:'20px'}}>·</div>
-								<div variant="body1" style={{marginRight:'10px', marginTop:'20px'}}>关键词2</div>
-							</Row>
-						</CardContent>
-						<CardActions>
-							<Button size="small">了解更多</Button>
-						</CardActions>
-					</Card>
-					
+							</CardContent>
+							<CardActions>
+								<Button style={{fontSize:"15px",fontWeight:"350", color:"#00C8AB"}} onClick={doJumpEx(item.url)}>了解更多</Button>
+							</CardActions>
+						</Card>
+					))}
 				</Grid>
-				
 			</Grid>
-
-
 		</>
-			
 	);
 };
 

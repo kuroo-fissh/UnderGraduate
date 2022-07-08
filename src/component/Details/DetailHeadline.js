@@ -19,7 +19,7 @@ export const DetailHeadline = (props) => {
 
 
 	return (
-		<div style={{backgroundColor:'#4CE3C4'}}>
+		<div style={{backgroundColor:'#52D9B3'}}>
 			<Row>
 				<div className="head-white">{title}</div>
 				<div className="head-yellow">{salary}</div>

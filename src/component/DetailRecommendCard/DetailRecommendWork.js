@@ -17,13 +17,16 @@ export const DetailRecommendCard = (props) => {
 	return (
 		<Card sx={{ minWidth: 350, minHeight: 100 }} className="card-total" variant="outlined" >
 			<CardContent>
-				<text className="card-title">{title}</text>
-				<text className="card-salary">{salary}</text>
-				<div className="card-content">{company} · {province} {location}</div>
-				
+				<div>
+					<text className="card-title">{title}</text>
+					<text className="card-salary">{salary}</text>
+				</div>
+				<div style={{marginLeft:"5px", marginTop:"10px"}}>
+					<text style={{fontSize:"15px",fontWeight:"350", color:"#595959"}}>{company} · {province} {location}</text>
+				</div>
 			</CardContent>
 			<CardActions>
-				<Button className="card-link" onClick={doJump}>
+				<Button onClick={doJump} style={{marginLeft:"5px", fontSize:"15px",fontWeight:"350", color:"#00C8AB"}}>
 				了解更多
 				</Button>
 			</CardActions>
