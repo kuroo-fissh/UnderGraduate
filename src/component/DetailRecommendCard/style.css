@@ -1,0 +1,30 @@
+.card-total{
+	margin-left: 20px;
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+.card-title{
+	margin-right: 10px;
+	font-size: 21px;
+	font-weight: 300;
+	color: #595959;
+}
+.card-salary{
+	margin-top: 5px;
+	font-size: 20px;
+	font-weight: 400;
+	color: #F29F05;
+}
+.card-content{
+	margin-right: 10px;
+	font-size: 15px;
+	font-weight: 300;
+	color: #595959;
+}
+.card-link{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 20px;
+	font-size: 15px;
+	color: #00C8AB;
+}
