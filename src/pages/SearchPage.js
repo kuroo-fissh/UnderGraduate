@@ -17,6 +17,7 @@ import Button from '@mui/material/Button';
 import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
+import axios from 'axios';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -61,6 +62,24 @@ const SearchPage = () => {
 	const ChangeStatus = () => {
 		setCurrent('Search', console.log("current:",current, "content:",content));
 	};
+
+	const [homepageRecommend, sethomepageRecommend] = useState([
+		{
+			"id" : "",
+			"title" : "",
+			"salary" : "",
+			"location" : "",
+			"company" : "",
+		}
+	]);
+
+	const [userInfo, setUserInfo] = useState({
+		"intendedPosition": "前端",
+		"province":"浙江",
+		"location":"杭州",
+		"identity":"应届毕业生",
+		"education":"本科",              
+	});
 
 	const [searchResult, setSearchResult] = useState([
 		{
@@ -113,6 +132,43 @@ const SearchPage = () => {
 			console.log("content: " + content);
 		};
 		SearchContentChangeTmp();
+		// const getData = async () => {
+		// 	fetch('/homepageRecommend', {
+		// 		method: 'POST',
+		// 		headers: {
+		// 			'Content-Type': 'application/json'
+		// 		},
+		// 		body: body
+		// 	}).then(res => res.json())
+		// 		.then(res => {
+		// 			sethomepageRecommend(res);
+		// 		}
+		// 		).catch(err => {
+		// 			console.log(err);
+		// 		}
+		// 		);
+		// };
+		// getData();
+
+		const postUserInfo = async (userInfo) => {
+			console.log("post info execute");
+			axios({
+				method: 'post',
+				url: 'http://localhost:8000/homepageRecommend/',
+				data: {
+					"intendedPosition": userInfo.intendedPosition,
+					"province": userInfo.province,
+					"location": userInfo.location,
+					"identity": userInfo.identity,
+					"education": userInfo.education,
+				}
+			}).then(data => {
+				console.log(data);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		};
+		postUserInfo(userInfo);
 
 		const ChangeStatusTmp = async () => {
 			console.log("current:",current, "content:",content);

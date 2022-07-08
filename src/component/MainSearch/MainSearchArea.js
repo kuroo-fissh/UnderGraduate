@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import React,{useState} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
@@ -16,30 +17,30 @@ export const MainSearchArea = (props) => {
 
 	React.useEffect(() => {
 		//这里实现和推荐引擎交互
-		const getData = () => {
-			fetch('/complement', {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					searchInput: searchInput
-				})
-			}).then(res => res.json())
-				.then(res => {
-					changeSuggestMenu(res.data);
-				})
-				.catch(err => {
-					console.log(err);
-				}
-				);
-			const button = document.getElementById("SuggestFlagButton");
-			button.textContent = '猜您想搜';
-		};
+		// const getData = () => {
+		// 	fetch('/complement', {
+		// 		method: 'GET',
+		// 		headers: {
+		// 			'Content-Type': 'application/json'
+		// 		},
+		// 		body: JSON.stringify({
+		// 			searchInput: searchInput
+		// 		})
+		// 	}).then(res => res.json())
+		// 		.then(res => {
+		// 			changeSuggestMenu(res.data);
+		// 		})
+		// 		.catch(err => {
+		// 			console.log(err);
+		// 		}
+		// 		);
+		// 	const button = document.getElementById("SuggestFlagButton");
+		// 	button.textContent = '猜您想搜';
+		// };
 	
 		//防抖调用getdata
 		const timer = setTimeout(() => {
-			getData();
+			// getData();
 		}
 		, 500);
 		return () => {
