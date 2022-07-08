@@ -10,9 +10,9 @@ import { DetailRecommendCard } from '../component/DetailRecommendCard/DetailReco
 
 
 const jobDetail = () => {
-	// let receiver = window.opener["filter"];
-	// let id = receiver.id;
-	const id = '100';
+	//从url中获取id
+	const id = window.location.href.split("=")[1];
+
 	// useEffect(() => {
 	// 	upload();
 	// });
