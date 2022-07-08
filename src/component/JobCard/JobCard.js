@@ -21,12 +21,12 @@ export const JobCard = (props) => {
 		<div onClick={doJump}>
 			<div name={id} className="card-zone">
 				<div className="card-content">
-					<div className="card-title">{title}</div>
-					<div className="card-name">{company}</div>
+					<div className="card-title" dangerouslySetInnerHTML={{ __html: title }}></div>
+					<div className="card-name" dangerouslySetInnerHTML={{ __html: company }}></div>
 				</div>
 				<div className="card-content">
-					<div className="card-salary">{salary}</div>
-					<div className="card-base">{city}</div>
+					<div className="card-salary" dangerouslySetInnerHTML={{ __html: salary }}></div>
+					<div className="card-base" dangerouslySetInnerHTML={{ __html: city }}></div>
 				</div>
 			</div>
 			<div className="card-tag">
