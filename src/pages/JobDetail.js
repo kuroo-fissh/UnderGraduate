@@ -1,6 +1,6 @@
 import React from 'react';
-//import { useState } from 'react';
-//import axios from "axios";
+import { useState, useEffect } from 'react';
+import axios from "axios";
 import '../component/Details/style.css';
 import {Grid,Divider,Card, CardActions, Button, CardContent} from '@mui/material';
 import { DetailHeadline } from '../component/Details/DetailHeadline';
@@ -18,26 +18,94 @@ const jobDetail = () => {
 	// });
 	
 	
-	const [detail,setDetail]=useState({});
-	React.useEffect(()=>{
+	const [detail,setDetail]=useState({
+		"uid": "1",
+		"title": "前端开发工程师",
+		"company": "百度",
+		"salary": "10k-20k",
+		"location": "中南海",
+		"academic_bg": "本科及以上",
+		"exp_bg": "工作三年及以上",
+		"corporation_scale": "10000人以上",
+		"business_scope": "社交软件、游戏开发、音乐平台",
+		"time": "2022.6.23",
+		"url": "http://localhost:3000/SearchPage",
+		"province": "北京",
+		"source": "牛客网",
+		"requirement": "这里是任职要求",
+		"responsibility": "这里是工作职责",
+	});
+
+	const [recommendWork,setRecommendWork]=useState([{
+		"uid": "1",
+		"title": "前端开发工程师",
+		"company": "阿里",
+		"salary": "15k-20k",
+		"province": "浙江",
+		"location": "杭州",
+	},{
+		"uid": "2",
+		"title": "前端开发工程师",
+		"company": "阿里",
+		"salary": "150k-200k",
+		"province": "浙江",
+		"location": "杭州",
+	},]);
+
+	const [recommendEx, setRecommendEx] = useState([
+		{
+			"uid":"1",
+			"title":"java面经",
+			"url":"http://localhost:3000/SearchPage",
+		},
+		{
+			"uid":"2",
+			"title":"Python面经",
+			"url":"http://localhost:3000/SearchPage",
+		},
+	]);
+
+
+	useEffect(()=>{
+		console.log("start");
 		const getData = async (id) => {
-			fetch('/showTitleInfo/'+id, {
-				method: 'GET',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: body
-			}).then(res => res.json())
-				.then(res => {
-					setDetail(res);
-				}
-				).catch(err => {
-					console.log(err);
-				}
-			);
+			axios({
+				method: 'get',
+				url: 'http://localhost:8000/showTitleInfo/'+id+'/',
+			}).then(data => {
+				console.log(data);
+				setDetail(data.data);
+			}).catch(function (error) {
+				console.log(error);
+			});
 		};
-		getData();
-	})
+		getData(id);
+		const getRecommendJob = async (id) => {
+			axios({
+				method: 'get',
+				url: 'http://localhost:8000/similarJobs/'+id+'/',
+			}).then(data => {
+				console.log(data);
+				setRecommendWork(data.data.jobs);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		};
+		getRecommendJob(id);
+		const getRecommendEx = async (id) => {
+			axios({
+				method: 'get',
+				url: 'http://localhost:8000/relatedExperiences/'+id+'/',
+			}).then(data => {
+				console.log(data);
+				setRecommendEx(data.data.experiences);
+			}).catch(function (error) {
+				console.log(error);
+			});
+		};
+		getRecommendEx(id);
+	},[]);
+
 	// const detail = {
 	// 	"id": "1",
 	// 	"title": "前端开发工程师",
@@ -56,36 +124,36 @@ const jobDetail = () => {
 	// 	"responsibility": "这里是工作职责",
 	// };
 
-	const recommendWork = [
-		{
-			"id": "1",
-			"title": "前端开发工程师",
-			"company": "阿里",
-			"salary": "15k-20k",
-			"province": "浙江",
-			"location": "杭州",
-		},{
-			"id": "2",
-			"title": "前端开发工程师",
-			"company": "阿里",
-			"salary": "150k-200k",
-			"province": "浙江",
-			"location": "杭州",
-		},
-	];
+	// const recommendWork = [
+	// 	{
+	// 		"id": "1",
+	// 		"title": "前端开发工程师",
+	// 		"company": "阿里",
+	// 		"salary": "15k-20k",
+	// 		"province": "浙江",
+	// 		"location": "杭州",
+	// 	},{
+	// 		"id": "2",
+	// 		"title": "前端开发工程师",
+	// 		"company": "阿里",
+	// 		"salary": "150k-200k",
+	// 		"province": "浙江",
+	// 		"location": "杭州",
+	// 	},
+	// ];
 
-	const recommendEx = [
-		{
-			"id":"1",
-			"title":"java面经",
-			"url":"http://localhost:3000/SearchPage",
-		},
-		{
-			"id":"2",
-			"title":"Python面经",
-			"url":"http://localhost:3000/SearchPage",
-		},
-	];
+	// const recommendEx = [
+	// 	{
+	// 		"id":"1",
+	// 		"title":"java面经",
+	// 		"url":"http://localhost:3000/SearchPage",
+	// 	},
+	// 	{
+	// 		"id":"2",
+	// 		"title":"Python面经",
+	// 		"url":"http://localhost:3000/SearchPage",
+	// 	},
+	// ];
 
 	function doJumpEx(url) {
 		window.open(url);
@@ -101,7 +169,7 @@ const jobDetail = () => {
 			<DetailHeadline title={detail.title} company={detail.company} salary={detail.salary} academicBg={detail.academic_bg} province={detail.province} location={detail.location}/>
 			
 			<Grid container>
-				<Grid xs={8} style={{marginRight:'10px'}}>
+				<Grid item xs={8} style={{marginRight:'10px'}}>
 					<div className='small-head'>
 						职位描述
 					</div>
@@ -114,7 +182,7 @@ const jobDetail = () => {
 						</text>
 					</div>
 					<div style={{marginTop:'15px', marginBottom:'15px'}}>
-						<text className='content-head'>
+						<text className='content-head' >
 							【公司业务范畴】
 						</text>
 						<text className='content'>
@@ -130,16 +198,17 @@ const jobDetail = () => {
 						</text>
 					</div>
 					<div className='content-head'>
-						【工作职责】
-					</div>
-					<div className='content'>
-						{detail.responsibility}
-					</div>
-					<div className='content-head'>
 						【工作经历要求】
 					</div>
 					<div className='content'>
 						{detail.exp_bg}
+					</div>
+			
+					<div className='content-head'>
+						【工作职责】
+					</div>
+					<div className='content'>
+						{detail.responsibility}
 					</div>
 					<div className='content-head'>
 						【任职要求】
@@ -153,10 +222,10 @@ const jobDetail = () => {
 					
 				</Grid>
 				<Divider orientation="vertical" flexItem variant="middle"></Divider>
-				<Grid xs={3.5}>
+				<Grid item xs={3.5}>
 					<div className='small-head'>相似职位</div>
 					{recommendWork.map(item => (
-						<DetailRecommendCard key={item.id} item={item}/>
+						<DetailRecommendCard key={item.uid} item={item}/>
 					))}
 					
 					<div className='small-head'>面试经验</div>
@@ -168,7 +237,7 @@ const jobDetail = () => {
 								</div>
 							</CardContent>
 							<CardActions>
-								<Button style={{fontSize:"15px",fontWeight:"350", color:"#00C8AB"}} onClick={doJumpEx(item.url)}>了解更多</Button>
+								<Button style={{fontSize:"15px",fontWeight:"350", color:"#00C8AB"}} onClick={doJumpEx(item.link)}>了解更多</Button>
 							</CardActions>
 						</Card>
 					))}

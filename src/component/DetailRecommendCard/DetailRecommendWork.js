@@ -5,8 +5,8 @@ import { Card, CardContent, CardActions, Button } from "@mui/material";
 //import { Row } from "antd";
 
 export const DetailRecommendCard = (props) => {
-	const {item: { id, title, company, salary, province, location },} = props;
-	const URL = "http://localhost:3000/jobDetail/id=" + { id };
+	const {item: { uid, title, company, salary, province, location },} = props;
+	const URL = "http://localhost:3000/jobDetail/" + uid;
 
 	function doJump() {
 		console.log(props.item);
