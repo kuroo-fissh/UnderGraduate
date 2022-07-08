@@ -17,6 +17,7 @@ export const MainSearchArea = (props) => {
 
 	React.useEffect(() => {
 		//这里实现和推荐引擎交互
+
 		// const getData = () => {
 		// 	fetch('/complement', {
 		// 		method: 'GET',
@@ -37,6 +38,7 @@ export const MainSearchArea = (props) => {
 		// 	const button = document.getElementById("SuggestFlagButton");
 		// 	button.textContent = '猜您想搜';
 		// };
+
 	
 		//防抖调用getdata
 		const timer = setTimeout(() => {

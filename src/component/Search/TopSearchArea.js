@@ -24,8 +24,8 @@ export const TopSearchArea = (props) => {
 		//这里实现和推荐引擎交互
 		const getData = () => {
 			changeSuggestMenu([]);
-			fetch('/complement', {
-				method: 'GET',
+			fetch('http://localhost:8000/complement/', {
+				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -34,6 +34,7 @@ export const TopSearchArea = (props) => {
 				})
 			}).then(res => res.json())
 				.then(res => {
+					console.log(res.data);
 					changeSuggestMenu(res.data);
 				})
 				.catch(err => {
