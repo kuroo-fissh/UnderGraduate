@@ -26,8 +26,9 @@ export function doSearch(searchInput,setSearchResult,setGetToTal,page,pageSize,s
 	}
 	else {
 		addHistory(searchInput);
-		fetch('/search', {
-			method: 'GET',
+		console.log("searching");
+		fetch(' http://localhost:8000/search/', {
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
