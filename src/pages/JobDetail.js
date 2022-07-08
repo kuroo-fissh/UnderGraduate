@@ -12,37 +12,49 @@ import { DetailRecommendCard } from '../component/DetailRecommendCard/DetailReco
 const jobDetail = () => {
 	// let receiver = window.opener["filter"];
 	// let id = receiver.id;
-	// const id = 100;
+	const id = '100';
 	// useEffect(() => {
 	// 	upload();
 	// });
 	
-	// async function upload() {
-	// 	let res = await axios.post('https://localhost:8000//showTitleInfo GET /'+'id', id);
-	// 	console.log(res);
-	// 	setDetail(res);
-	// 	if (res.length === 0) {
-	// 	  	alert("数据出错，没有相应id的数据！");
-	// 	}
-	// }
-	//const [detail,setDetail]=useState({});
-	const detail = {
-		"id": "1",
-		"title": "前端开发工程师",
-		"company": "百度",
-		"salary": "10k-20k",
-		"location": "中南海",
-		"academic_bg": "本科及以上",
-		"exp_bg": "工作三年及以上",
-		"corporation_scale": "10000人以上",
-		"business_scope": "社交软件、游戏开发、音乐平台",
-		"time": "2022.6.23",
-		"url": "http://localhost:3000/SearchPage",
-		"province": "北京",
-		"source": "牛客网",
-		"requirement": "这里是任职要求",
-		"responsibility": "这里是工作职责",
-	};
+	
+	const [detail,setDetail]=useState({});
+	React.useEffect(()=>{
+		const getData = async (id) => {
+			fetch('/showTitleInfo/'+id, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: body
+			}).then(res => res.json())
+				.then(res => {
+					setDetail(res);
+				}
+				).catch(err => {
+					console.log(err);
+				}
+			);
+		};
+		getData();
+	})
+	// const detail = {
+	// 	"id": "1",
+	// 	"title": "前端开发工程师",
+	// 	"company": "百度",
+	// 	"salary": "10k-20k",
+	// 	"location": "中南海",
+	// 	"academic_bg": "本科及以上",
+	// 	"exp_bg": "工作三年及以上",
+	// 	"corporation_scale": "10000人以上",
+	// 	"business_scope": "社交软件、游戏开发、音乐平台",
+	// 	"time": "2022.6.23",
+	// 	"url": "http://localhost:3000/SearchPage",
+	// 	"province": "北京",
+	// 	"source": "牛客网",
+	// 	"requirement": "这里是任职要求",
+	// 	"responsibility": "这里是工作职责",
+	// };
 
 	const recommendWork = [
 		{
