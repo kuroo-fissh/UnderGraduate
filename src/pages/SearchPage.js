@@ -141,11 +141,6 @@ const SearchPage = () => {
 		setOpen(true);
 	};
 	
-	const handleClose = () => {
-		setOpen(false);
-		updateUserInfo(intendedP,pro,loc,iden,edu);
-		
-	};
 	function readUserInfo(){
 		let result=readUser();
 		
@@ -159,7 +154,7 @@ const SearchPage = () => {
 	function updateUserInfo(intendedP,pro,loc,iden,edu){
 		updateUser(intendedP,pro,loc,iden,edu);
 		//readUserInfo();
-		postUserInfo();
+		//postUserInfo();
 	}
 
 	const LinkToJobDetail = (id) => {
@@ -167,8 +162,35 @@ const SearchPage = () => {
 		window.open("http://localhost:3000/jobDetail/id=" + id);
 	};
 
+	const postUserInfo = async () => {
+		//let userInfo = readUser();
+		console.log("post info execute");
+		axios({
+			method: 'post',
+			url: 'http://localhost:8000/homepageRecommend/',
+			data: {
+				"intendedPosition": intendedP,
+				"province": pro,
+				"location": loc,
+				"identity": iden,
+				"education": edu,
+			}
+		}).then(data => {
+			console.log(data.data.jobs);
+			sethomepageRecommend(data.data.jobs);
+		}).catch(function (error) {
+			console.log(error);
+		});
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+		postUserInfo();
+		//updateUserInfo(intendedP,pro,loc,iden,edu);
+		
+	};
 	React.useEffect(() => {
-		createUser();
+		//createUser();
 		const SearchContentChangeTmp = async () => {
 			//setContent(item.target.value);
 			console.log("content: " + content);
@@ -192,26 +214,26 @@ const SearchPage = () => {
 		// };
 		// getData();
 
-		const postUserInfo = async () => {
-			//let userInfo = readUser();
-			console.log("post info execute");
-			axios({
-				method: 'post',
-				url: 'http://localhost:8000/homepageRecommend/',
-				data: {
-					"intendedPosition": intendedP,
-					"province": pro,
-					"location": loc,
-					"identity": iden,
-					"education": edu,
-				}
-			}).then(data => {
-				console.log(data.data.jobs);
-				sethomepageRecommend(data.data.jobs);
-			}).catch(function (error) {
-				console.log(error);
-			});
-		};
+		// const postUserInfo = async () => {
+		// 	//let userInfo = readUser();
+		// 	console.log("post info execute");
+		// 	axios({
+		// 		method: 'post',
+		// 		url: 'http://localhost:8000/homepageRecommend/',
+		// 		data: {
+		// 			"intendedPosition": intendedP,
+		// 			"province": pro,
+		// 			"location": loc,
+		// 			"identity": iden,
+		// 			"education": edu,
+		// 		}
+		// 	}).then(data => {
+		// 		console.log(data.data.jobs);
+		// 		sethomepageRecommend(data.data.jobs);
+		// 	}).catch(function (error) {
+		// 		console.log(error);
+		// 	});
+		// };
 		postUserInfo();
 
 		const ChangeStatusTmp = async () => {
