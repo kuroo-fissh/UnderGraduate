@@ -101,14 +101,15 @@ const jobDetail = () => {
 		getRecommendEx(id);
 	},[]);
 
-	function doJumpEx(url) {
-		window.open(url);
-	}
+	// const doJumpEx = async(url) => {
+	// 	console.log("jump   "+url);
+	// 	//window.open(url);
+	// };
 
-	function doJump() {
-		console.log(detail);
-		window.open(detail.url);
-	}
+	// const doJump=async() =>{
+	// 	console.log(detail);
+	// 	//window.open(detail.url);
+	// };
 
 	return (
 		<>
@@ -162,7 +163,9 @@ const jobDetail = () => {
 					<div className='content'>
 						{detail.requirement}
 					</div>
-					<Button style={{marginLeft:"20px", fontSize:"18px",fontWeight:"350", color:"#00C8AB"}} onClick={doJump}>
+					<Button style={{marginLeft:"20px", fontSize:"18px",fontWeight:"350", color:"#00C8AB"}} onClick={()=>{
+						window.open(detail.url);
+					}}>
 						【查看原招聘链接，了解更多】
 					</Button>
 					
@@ -183,7 +186,10 @@ const jobDetail = () => {
 								</div>
 							</CardContent>
 							<CardActions>
-								<Button style={{fontSize:"15px",fontWeight:"350", color:"#00C8AB"}} onClick={doJumpEx(item.link)}>了解更多</Button>
+								<Button style={{fontSize:"15px",fontWeight:"350", color:"#00C8AB"}} onClick={()=>{
+									console.log("jump   "+item.link);
+									window.open(item.link);
+								}}>了解更多</Button>
 							</CardActions>
 						</Card>
 					))}

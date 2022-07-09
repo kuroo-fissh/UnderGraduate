@@ -8,10 +8,10 @@ export const DetailRecommendCard = (props) => {
 	const {item: { uid, title, company, salary, province, location },} = props;
 	const URL = "http://localhost:3000/jobDetail/id=" + uid;
 
-	function doJump(url) {
-		console.log(url);
-		window.open(url);
-	}
+	// function doJump(url) {
+	// 	console.log(url);
+	// 	window.open(url);
+	// }
 
 	return (
 		<Card sx={{ minWidth: 350, minHeight: 100 }} className="card-total" variant="outlined" >
@@ -25,7 +25,10 @@ export const DetailRecommendCard = (props) => {
 				</div>
 			</CardContent>
 			<CardActions>
-				<Button onClick={doJump(URL)} style={{marginLeft:"5px", fontSize:"15px",fontWeight:"350", color:"#00C8AB"}}>
+				<Button onClick={()=>{
+					console.log(URL);
+					window.open(URL);
+				}} style={{marginLeft:"5px", fontSize:"15px",fontWeight:"350", color:"#00C8AB"}}>
 				了解更多
 				</Button>
 			</CardActions>
