@@ -141,21 +141,22 @@ const SearchPage = () => {
 		setOpen(true);
 	};
 	
-	function readUserInfo(){
-		let result=readUser();
+	// function readUserInfo(){
+	// 	let result=readUser();
 		
-		setIntendedP(result.intendedPosition);
-		setLoc(result.location);
-		setPro(result.province);
-		setIden(result.identity);
-		setEdu(result.education);
-		console.log("result"+result);
-	}
-	function updateUserInfo(intendedP,pro,loc,iden,edu){
-		updateUser(intendedP,pro,loc,iden,edu);
-		//readUserInfo();
-		//postUserInfo();
-	}
+	// 	setIntendedP(result.intendedPosition);
+	// 	setLoc(result.location);
+	// 	setPro(result.province);
+	// 	setIden(result.identity);
+	// 	setEdu(result.education);
+	// 	console.log("result"+result);
+	// }
+
+	// function updateUserInfo(intendedP,pro,loc,iden,edu){
+	// 	updateUser(intendedP,pro,loc,iden,edu);
+	// 	readUserInfo();
+	// 	postUserInfo();
+	// }
 
 	const LinkToJobDetail = (id) => {
 		console.log("http://localhost:3000/jobDetail/id=" + id);
@@ -289,7 +290,7 @@ const SearchPage = () => {
 											{homepageRecommend.slice(0,6).map(item => (
 												<Col style={{padding : "20px 20px"}}>
 													<Card sx={{ width: 250, height:200 }}>
-														<CardContent>
+														<CardContent sx={{height:150}}>
 															<div style={{color:"#595959", fontSize:'20px'}} >
 																{item.title}
 															</div>
@@ -301,7 +302,7 @@ const SearchPage = () => {
 															</div>
 														</CardContent>
 											
-														<CardActions>
+														<CardActions disableSpacing>
 															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)} style={{fontSize:"14px", color:"#00C8AB"}}>了解更多</Button>
 														</CardActions>
 													</Card>
@@ -315,7 +316,7 @@ const SearchPage = () => {
 											{homepageRecommend.slice(0,6).map(item => (
 												<Col style={{padding : "20px 20px"}}>
 													<Card sx={{ width: 250, height:200 }}>
-														<CardContent>
+														<CardContent sx={{height:150}}>
 															<div style={{color:"#595959", fontSize:'20px'}} >
 																{item.title}
 															</div>
@@ -327,7 +328,7 @@ const SearchPage = () => {
 															</div>
 														</CardContent>
 											
-														<CardActions>
+														<CardActions >
 															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)} style={{ fontSize:"14px",color:"#00C8AB"}}>了解更多</Button>
 														</CardActions>
 													</Card>
@@ -355,7 +356,9 @@ const SearchPage = () => {
 									label="省份(ex.浙江)"
 									variant="standard"
 									value={pro}
+									color="success"
 									onChange={handleChangePro}
+									style={{marginRight:'30px',width:'200px'}}
 								/>
 								<TextField
 									autoFocus
@@ -364,7 +367,9 @@ const SearchPage = () => {
 									label="城市(ex.杭州)"
 									variant="standard"
 									value={loc}
+									color="success"
 									onChange={handleChangeLoc}
+									style={{width:'200px'}}
 								/>
 							</div>
 							<div style={{marginBottom:'10px', marginTop:'10px'}}>
@@ -375,32 +380,61 @@ const SearchPage = () => {
 									value={edu}
 									onChange={handleChangeEdu}
 									variant="standard"
+									color="success"
+									style={{marginRight:'30px', width:'200px'}}
 								>
 									<MenuItem value={"大专"}>大专</MenuItem>
 									<MenuItem value={"本科"}>本科及以上</MenuItem>
 								</Select>
 								<Select
-									labelId="education"
-									id="education"
-									label="Age"
+									labelId="Identity"
+									id="Identity"
+									label="Identity"
 									value={iden}
 									onChange={handleChangeIden}
 									variant="standard"
+									color="success"
+									style={{ width:'200px'}}
 								>
 									<MenuItem value={"在校生"}>在校生</MenuItem>
 									<MenuItem value={"应届毕业生"}>应届毕业生</MenuItem>
 									<MenuItem value={"社招人士"}>社招人士</MenuItem>
 								</Select>
 							</div>
+							<Select
+								labelId="IntendPosition"
+								id="IntendPosition"
+								label="IntendPosition"
+								value={intendedP}
+								onChange={handleChangeInten}
+								variant="standard"
+								color="success"
+								style={{ width:'200px',marginBottom:'10px', marginTop:'10px'}}
+							>
+								<MenuItem value={"前端"}>前端</MenuItem>
+								<MenuItem value={"后端"}>后端</MenuItem>
+								<MenuItem value={"架构"}>架构</MenuItem>
+								<MenuItem value={"测试"}>测试</MenuItem>
+								<MenuItem value={"产品"}>产品</MenuItem>
+								<MenuItem value={"算法"}>算法</MenuItem>
+								<MenuItem value={"Java"}>Java</MenuItem>
+								<MenuItem value={"Python"}>Python</MenuItem>
+							</Select>
 							
 						</DialogContent>
 						<DialogActions>
-							<Button onClick={handleClose}>保存</Button>
+							<Button onClick={handleClose} variant="contained" style={{
+								fontWeight:'bold', 
+								backgroundColor:'#00C8AA', 
+								marginRight:'5px', 
+								marginBottom:'5px'}} 
+							>
+								保 存
+							</Button>
 						</DialogActions>
 					</Dialog>
 				/</Form>
 			</div>
-			
 		);
 	}
 	else if (current === "InterviewExperience"){
