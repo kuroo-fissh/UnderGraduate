@@ -20,16 +20,15 @@ export const SelectArea = (props) => {
 	};
   
 	return (
-		<div>
-			<Select
-				mode="multiple"
-				allowClear
-				style={{ width: '100%' }}
-				placeholder={selectDesc}
-				onChange={handleChange}
-			>
-				{children}
-			</Select>
-		</div>
+		
+		<Select
+			mode="multiple"
+			allowClear
+			style={{ width: '460px' , padding : "0px 10px"}}
+			placeholder={selectDesc}
+			onChange={handleChange}
+		>
+			{children}
+		</Select>
 	);
 };

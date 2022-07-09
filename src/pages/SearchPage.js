@@ -10,7 +10,6 @@ import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Avatar} from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import { UserOutlined } from '@ant-design/icons';
 import { Cascader, Select } from 'antd';
-import { MainSearchArea } from '../component/MainSearch/MainSearchArea.js';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -18,6 +17,8 @@ import CardHeader from '@mui/material/CardHeader';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
+import { TopSearchArea } from '../component/Search/TopSearchArea';
+import { padding } from '@mui/system';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -34,6 +35,9 @@ const onChange = item => {
 	console.log(item);
 };
 
+const count = 0;
+
+
 const selectBefore = (
 	<Select defaultValue="职位信息" className="select-before">
 		<Option value="job">职位信息</Option>
@@ -42,8 +46,6 @@ const selectBefore = (
 );
 
 let sectionStyle = {
-	width: '100%',
-	height: '100%',
 	// makesure here is String确保这里是一个字符串，以下是es6写法
 	backgroundImage: `url(${pic})` 
 };
@@ -88,6 +90,7 @@ const SearchPage = () => {
 			"company": "百度",
 			"salary": "10k-20k",
 			"city": "北京",
+			"tags": ["前端", "百度", "北京"],
 		},
 		{
 			"id": "2",
@@ -95,36 +98,14 @@ const SearchPage = () => {
 			"company": "百度",
 			"salary": "20k-30k",
 			"city": "北京",
-		},
-		{
-			"id": "3",
-			"title": "后端开发工程师",
-			"company": "百度",
-			"salary": "20k-30k",
-			"city": "北",
-		},
-		{
-			"id": "4",
-			"title": "后端开发工程师",
-			"company": "百度",
-			"salary": "20k-30k",
-			"city": "京",
-		},
-		{
-			"id": "5",
-			"title": "端开发工程师",
-			"company": "百度",
-			"salary": "20k-30k",
-			"city": "北京",
-		},
-		{
-			"id": "6",
-			"title": "后端发工程师",
-			"company": "百度",
-			"salary": "20k-30k",
-			"city": "北京",
+			"tags": ["后端", "百度", "北京"],
 		},
 	]);
+
+	const LinkToJobDetail = (id) => {
+		console.log("http://localhost:3000/jobDetail/id=" + id);
+		window.open("http://localhost:3000/jobDetail/id=" + id);
+	};
 
 	React.useEffect(() => {
 		const SearchContentChangeTmp = async () => {
@@ -163,7 +144,8 @@ const SearchPage = () => {
 					"education": userInfo.education,
 				}
 			}).then(data => {
-				console.log(data);
+				console.log(data.data.jobs);
+				sethomepageRecommend(data.data.jobs);
 			}).catch(function (error) {
 				console.log(error);
 			});
@@ -185,82 +167,103 @@ const SearchPage = () => {
 			searchIconcolor.style.backgroundColor = "white";
 			const searchButtoncolor = document.getElementById("searchButton");
 			searchButtoncolor.style.backgroundColor = "white";
-			searchButtoncolor.style.border = "none";
-			searchButtoncolor.style.height = "25px";
-			searchButtoncolor.style.width = "30px";
-			const searchAreacolor = document.getElementById("searchArea");
-			searchAreacolor.style.backgroundColor = "white";
 		};
 		changeColor();
 
-	}, [content], [current]);
+
+	}, [content], [current],[homepageRecommend]);
 
 	if (current === 'Search') {
 		return (
-			<Form name="basic"
-				initialValues={{ remember: true }}
-				autoComplete="off"
-				style={sectionStyle}> 
-				<div style={{marginLeft: "1350px", padding:"10px"}} onClick = {() => {window.open("http://leetcode.cn/problemset/all/");}}>
-					<Avatar size={50} icon={<UserOutlined />} style = {{backgroundColor: '#87d068'}}/>
-				</div>
-				<div style={{display : "flex", flexDirection : "row", justifyContent : "center", marginTop: "-80px"}}>
-					<Form.Item style={{width : 1000, border :1}}>
-						<br/>
-						<br/>
-						<br/>
-						<h1 style={{display : "flex", flexDirection : "row", justifyContent : "center", fontWeight : 'bolder', color : "white", fontSize : "80px"}} >Under Graduate</h1>
-						<Form.Item name="content"
-							style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+			<div style={{backgroundImage: `url(${pic})`,width:'100%',height:'48.75rem', backgroundSize:"cover"}}>
+				<Form name="basic"> 
+					<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+						<Form.Item style={{width : 1000, border :1}}>
+							<br/>
+							<h1 style={{display : "flex", justifyContent : "center", fontWeight : 'bolder', color : "white", fontSize : "80px",marginBottom: "0px"}} >Under Graduate</h1>
+							<Form.Item name="content"
+								style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+								<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
+									<TopSearchArea setSearchResult={setSearchResult} />
+								</div>
 
-							<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
-								<MainSearchArea setSearchResult={setSearchResult} />
-							</div>
-
-							{/* <Search 
+								{/* <Search 
 								addonBefore={selectBefore}	
 								placeholder = "What are you looking for..." 
 								enterButton = "搜索"
 								onChange={(e)=>setContent(e.target.value)}
 								onSearch={()=>setCurrent('InterviewExperience')}/> */}
-						</Form.Item>
-						<br/>
-						<Form.Item style={{padding: "0px 70px"}}> 
-							<div >
-								<Row gutter={15}>
-									{searchResult.map(item => (
-										<Col style={{padding : "20px 20px"}}>
-											<Card sx={{ width: 250 }}>
-												<CardHeader
-													action={
-														// <IconButton aria-label="settings">
-														// 	<MoreVertIcon />
-														// </IconButton>
-														<Typography sx={{ fontSize: 23 }} color="#FAAD00">
-															{item.salary}
-														</Typography>
-													}
-													title = {
-														<h5>{item.title}</h5>
-													}
-													subheader = {
-														<h5>{item.city + '·' + item.company}</h5>
-													}>
-												</CardHeader>
-												<CardActions>
-													<Button size="small" >learn more</Button>
-												</CardActions>
-											</Card>
-											
-										</Col>
-									))}
-								</Row>
-							</div>
-						</Form.Item>
+							</Form.Item>
+							<br/>
+							<Form.Item style={{padding: "0px 70px"}}> 
+								<Carousel autoplay >
+									<div>
+										<Row gutter={15}>
+											{homepageRecommend.slice(0,6).map(item => (
+												<Col style={{padding : "20px 20px"}}>
+													<Card sx={{ width: 250 }}>
+														<CardHeader
+															action={
+															// <IconButton aria-label="settings">
+															// 	<MoreVertIcon />
+															// </IconButton>
+																<Typography sx={{ fontSize: 23 }} color="#FAAD00">
+																	{item.salary}
+																</Typography>
+															}
+															title = {
+																<h5>{item.title}</h5>
+															}
+															subheader = {
+																<h5>{item.location + '·' + item.company}</h5>
+															}>
+														</CardHeader>
+														<CardActions>
+															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)}>learn more</Button>
+														</CardActions>
+													</Card>
+												</Col>
+											))}
+										</Row>
+									</div>
+									<div>
+										<Row gutter={15}>
+											{homepageRecommend.slice(0,6).map(item => (
+												<Col style={{padding : "20px 20px"}}>
+													<Card sx={{ width: 250 }}>
+														<CardHeader
+															action={
+															// <IconButton aria-label="settings">
+															// 	<MoreVertIcon />
+															// </IconButton>
+																<Typography sx={{ fontSize: 23 }} color="#FAAD00">
+																	{item.salary}
+																</Typography>
+															}
+															title = {
+																<h5>{item.title}</h5>
+															}
+															subheader = {
+																<h5>{item.location + '·' + item.company}</h5>
+															}>
+														</CardHeader>
+														<CardActions>
+															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)}>learn more</Button>
+														</CardActions>
+													</Card>
+												</Col>
+											))}
+										</Row>
+									</div>
+								</Carousel>
+							
+							</Form.Item>
 						
-					</Form.Item>
-				</div>
+						</Form.Item>
+					</div>
 				/</Form>
+			</div>
+			
 		);
 	}
 	else if (current === "InterviewExperience"){

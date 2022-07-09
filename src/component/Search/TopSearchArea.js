@@ -44,7 +44,6 @@ export const TopSearchArea = (props) => {
 			const button = document.getElementById("SuggestFlagButton");
 			button.textContent = '猜您想搜';
 		};
-	
 		//防抖调用getdata
 		const timer = setTimeout(() => {
 			getData();
@@ -63,8 +62,13 @@ export const TopSearchArea = (props) => {
 
 	//useeffect，只在页面初加载调用
 	React.useEffect(() => {
+		console.log("heeeelloooo");
 		//从url中解析input
 		const url = window.location.href;
+		//如果是初始界面，则不做任何操作
+		if (url.indexOf('input') === -1&&searchInput===''){
+			return;
+		}
 		//解析url
 		const urlArray = url.split('/');
 		//获取input
@@ -87,6 +91,7 @@ export const TopSearchArea = (props) => {
 		if (window.location.pathname.includes('/InterviewExperience')){
 			return '面试经验';
 		}
+		return '职位信息';
 	}
 
 
@@ -103,7 +108,9 @@ export const TopSearchArea = (props) => {
 				<input id="inputArea" autoComplete="off" className="text" onKeyDown={checkIfSearch} onClick={showSearchSueegst} onChange={(e) => setSearchInput(e.target.value)} value={searchInput}></input>
 				<div id="suggestDropdown" className="suggest-dropdown-content"/>
 			</div>
-			<button className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult,setGetToTal,page,pageSize,selectSalary,selectJob,selectSchool)}> <SearchIcon /></button>
+			<button id="searchButton" className="search" onClick={()=>doSearch(	document.getElementById("inputArea").value,setSearchResult,setGetToTal,page,pageSize,selectSalary,selectJob,selectSchool)}> 
+				<SearchIcon id="searchIcon"/>
+			</button>
 		</div>
 	);
 };

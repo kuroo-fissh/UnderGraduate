@@ -15,17 +15,19 @@ export function doSearch(searchInput,setSearchResult,setGetToTal,page,pageSize,s
 		window.location.href= document.getElementById('modeButton').textContent === "职位信息" ? '/jobSearch/input=' + searchInput : '/InterviewExperience/input=' + searchInput;	
 	}
 	else if (searchMode===1&&!window.location.pathname.includes('/jobSearch')) {
+		addHistory(searchInput,'jobDb');
 		window.location.href='/jobSearch'+'/input='+searchInput;
 	}
 	else if (searchMode===2&&!window.location.pathname.includes('/InterviewExperience')) {
+		addHistory(searchInput,'expDb');
 		window.location.href='/InterviewExperience'+'/input='+searchInput;
 	}
 	//如果现在的input和url中的input不一样，则更新url
 	else if (window.location.pathname.includes('input')&&searchInput!==decodeURIComponent(window.location.pathname.split('/')[window.location.pathname.split('/').length-1].split('=')[1])) {
+		addHistory(searchInput);
 		window.location.href= window.location.pathname.split('/')[window.location.pathname.split('/').length-1].split('=')[0]+'='+searchInput;
 	}
 	else {
-		addHistory(searchInput);
 		console.log("searching");
 		fetch(' http://localhost:8000/search/', {
 			method: 'POST',
@@ -35,6 +37,7 @@ export function doSearch(searchInput,setSearchResult,setGetToTal,page,pageSize,s
 			body: body
 		}).then(res => res.json())
 			.then(res => {
+				console.log("hello:" + res.data);
 				setSearchResult(res.data);
 				setGetToTal(res.total);
 			}

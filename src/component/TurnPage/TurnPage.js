@@ -14,11 +14,11 @@ export const TurnPage = (props) => {
 	};
 
 	return (
-		<div>
+		<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
 			<Pagination
 				showSizeChanger
 				showQuickJumper 
-				total={total}
+				total={total>1000?1000:total}
 				onChange={TurnPageOnChange}
 			/>
 		</div>

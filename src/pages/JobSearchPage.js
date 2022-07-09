@@ -10,7 +10,7 @@ const JobSearchPage = () => {
 	// 任务搜索结果
 	const [searchResult, setSearchResult] = useState([
 		{
-			"id": "1",
+			"uid": "1",
 			"title": "前端开发工程师",
 			"company": "百度",
 			"salary": "10k-20k",
@@ -18,7 +18,7 @@ const JobSearchPage = () => {
 			"tags": ["前端", "百度", "北京"],
 		},
 		{
-			"id": "2",
+			"uid": "2",
 			"title": "后端开发工程师",
 			"company": "百度",
 			"salary": "20k-30k",
@@ -72,9 +72,11 @@ const JobSearchPage = () => {
 					<TopSearchArea setSearchResult={setSearchResult} setGetToTal={setGetToTal} page={getNowPage} pageSize={getNowSize} selectSalary={salarySelectValue} selectJob={jobSelectValue} selectSchool={schoolSelectValue}/>
 				</div>
 			</div>		
-			<SelectArea selectItem={jobSelect} setSelectItem={setJobSelectValue} selectDesc="选择职位类型"/>
-			<SelectArea selectItem={salarySelect} setSelectItem={setSalarySelectValue} selectDesc="选择薪资"/>
-			<SelectArea selectItem={schoolSelect} setSelectItem={setSchoolSelectValue} selectDesc="选择学历"/>
+			<div style={{display:'flex',flexDirection:'row',justifyContent:'center',marginTop:'10px'}}>
+				<SelectArea selectItem={jobSelect} setSelectItem={setJobSelectValue} selectDesc="选择职位类型" />
+				<SelectArea selectItem={salarySelect} setSelectItem={setSalarySelectValue} selectDesc="选择薪资"/>
+				<SelectArea selectItem={schoolSelect} setSelectItem={setSchoolSelectValue} selectDesc="选择学历"/>
+			</div>
 			<AutoPlay/>			
 			<div style={{padding: "1px 40px"}}>
 				{searchResult.map(item => (

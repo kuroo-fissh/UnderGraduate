@@ -12,8 +12,11 @@ export function createDb(mode){
 	};
 }
 
-export function addHistory(value) {
+export function addHistory(value, userMode) {
 	let mode = document.getElementById("modeButton").textContent === "职位信息" ? jobDbName : expDbName;
+	if (userMode!==undefined){
+		mode = userMode;
+	}
 	let db = window.indexedDB.open(mode, 1);
 	db.onsuccess = function (e) {
 		let db = e.target.result;

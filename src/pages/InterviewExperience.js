@@ -2,26 +2,21 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import '../index.css';
-import reportWebVitals from '../reportWebVitals';
-import { Navigate } from 'react-router-dom';
-import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Divider, Card, Tag, Button } from 'antd';
-import { AudioOutlined } from '@ant-design/icons';
-import { FrownOutlined , QuestionCircleOutlined } from '@ant-design/icons';
-import { Cascader, Select } from 'antd';
+import { Layout,Form,Row,Col,Card } from 'antd';
 import { TopSearchArea } from '../component/Search/TopSearchArea';
-import { styled } from '@mui/material/styles';
-import CardHeader from '@mui/material/CardHeader';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
+import {TurnPage} from "../component/TurnPage/TurnPage.js";
 
 const { Meta } = Card;
-
 const InterviewExperience = () => {
 
 	const [content, setContent] = useState('');
 	const [check, setCheck] = useState(0);
 	const [current, setCurrent] = useState('Search');
 
+
+	const [getToTal, setGetToTal] = useState(100);
+	const [getNowSize, setGetNowSize] = useState(10);
+	const [getNowPage, setGetNowPage] = useState(1);
 
 	const SearchContentChange = (item) => {
 		setContent(item.target.value, console.log("content: " + content));
@@ -33,34 +28,19 @@ const InterviewExperience = () => {
 
 	const [searchResult, setSearchResult] = useState([
 		{
-			"id": "1",
-			"title": "阿里、腾讯、字节、快手、美团 | Java开发岗 | 2020…",
-			"tags": ["面试经验","Java", "4+"],
+			"uid":"1",
+			"title":"java面经",
+			"url":"http://localhost:3000/SearchPage",
 		},
 		{
-			"id": "2",
-			"title": "后端开发工程师",
-			"tags": ["面试经验","Java", "5+"],
+			"uid":"2",
+			"title":"jaassssssssssva面经",
+			"url":"http://localhost:3000/SearchPage",
 		},
 		{
-			"id": "3",
-			"title": "后端开发工程师",
-			"tags": ["面试经验","Java", "5+"],
-		},
-		{
-			"id": "4",
-			"title": "后端开发工程师",
-			"tags": ["面试经验","Java", "5+"],
-		},
-		{
-			"id": "5",
-			"title": "后端开发工程师",
-			"tags": ["面试经验","Java", "5+"],
-		},
-		{
-			"id": "6",
-			"title": "后端开发工程师",
-			"tags": ["面试经验","Java", "5+"],
+			"uid":"3",
+			"title":"javdasa面经",
+			"url":"http://localhost:3000/SearchPage",
 		},
 	]);
 
@@ -79,15 +59,16 @@ const InterviewExperience = () => {
 
 	return (
 		<Form>
-			<Row>
-				<h2 style={{fontSize: "30px", color: '#4CE3C4',marginLeft:'20px',marginRight:'20px', marginBottom: '3px', fontWeight: 'bold'}}>Under Graduate</h2>
+			<div style={{padding: "10px",boxShadow: "0px 0px 3px #ccc",display:'flex',alignItems:'center',backgroundColor: "#fff"}}>
+				<h2 style={{fontSize: "30px", color: '#4CE3C4',marginLeft:'20px',marginRight:'100px', marginBottom: '3px', fontWeight: 'bold'}}>Under Graduate</h2>
 				<div>
-					<TopSearchArea setSearchResult={setSearchResult}/>
+					<TopSearchArea setSearchResult={setSearchResult} setGetToTal={setGetToTal} page={getNowPage} pageSize={getNowSize} />
 				</div>
-			</Row>
+			</div>
 			<Layout>
 				<Row style={{marginTop : '20px', marginLeft: '20px'}}>
 					{searchResult.map(item => (
+						console.log("item:",item),
 						<Col span={6} style={{padding: '10px 10px'}}>
 							<Card
 								cover={
@@ -97,18 +78,24 @@ const InterviewExperience = () => {
 									/>
 								}
 								style={{ width: 300, height: 300 }}
+								actions={[
+
+									<h1 key="1" onClick={() => {window.open(item.link);}} style={{color:"#1baf8f", fontSize:"15px"}}>了解更多</h1>,
+									
+									
+								]}
 							>
 								<Meta
 									title={item.title}
+									
 								/>
-								<br/>
-								{item.tags.map(tag => (
-									<Tag color="cyan">{tag}</Tag>))
-								}	
 							</Card>
 						</Col>
 					))}
 				</Row>
+				<div style={{padding: "10px 40px", display : "flex", flexDirection : "row", justifyContent : "center"}}>
+					<TurnPage setSearchResult={setSearchResult} total={getToTal} setGetToTal={setGetToTal} setGetNowSize={setGetNowSize} setGetNowPage={setGetNowPage}/>
+				</div>
 			</Layout>
 		</Form>
 	);

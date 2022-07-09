@@ -3,23 +3,21 @@ import React from "react";
 import './style.css';
 
 export const JobCard = (props) => {
-	const {item: { id,title, company, salary, city, tags}} = props;
-	const URL = "http://localhost:3000/jobDetail/id=" + props.item.id;
+	const {item: { uid,title, company, salary, city, tags}} = props;
+	const URL = "http://localhost:3000/jobDetail/id=" + props.item.uid;
 	function jumpToRelatedJob(e) {
 		console.log("dojump");
 		e.preventDefault();
 	}
 
 	function doJump() {
-		console.log(props.item);
-		window["filter"] = props.item;
 		window.open(URL);
 	}
 
 
 	return (
 		<div onClick={doJump}>
-			<div name={id} className="card-zone">
+			<div name={uid} className="card-zone">
 				<div className="card-content">
 					<div className="card-title" dangerouslySetInnerHTML={{ __html: title }}></div>
 					<div className="card-name" dangerouslySetInnerHTML={{ __html: company }}></div>
@@ -32,7 +30,7 @@ export const JobCard = (props) => {
 			<div className="card-tag">
 				{
 					tags.map(item => (
-						<button key={item} className="card-tag-item" onClick={jumpToRelatedJob}>{item}</button>
+						<button key={item} className="card-tag-item" onClick={jumpToRelatedJob} dangerouslySetInnerHTML={{ __html: item }}></button>
 					))
 				}
 			</div>
