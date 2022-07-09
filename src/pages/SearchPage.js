@@ -18,9 +18,9 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { TopSearchArea } from '../component/Search/TopSearchArea';
-import { padding } from '@mui/system';
+import { color, padding } from '@mui/system';
 import { createUser, updateUser, addInitialUser, readUser } from '../utils/indexDb';
-import { Dialog } from '@mui/material';
+import { CardContent, Dialog } from '@mui/material';
 import { DialogTitle } from '@mui/material';
 import { DialogContent } from '@mui/material';
 import { DialogContentText } from '@mui/material';
@@ -288,54 +288,47 @@ const SearchPage = () => {
 										<Row gutter={15}>
 											{homepageRecommend.slice(0,6).map(item => (
 												<Col style={{padding : "20px 20px"}}>
-													<Card sx={{ width: 250 }}>
-														<CardHeader
-															action={
-															// <IconButton aria-label="settings">
-															// 	<MoreVertIcon />
-															// </IconButton>
-																<Typography sx={{ fontSize: 23 }} color="#FAAD00">
-																	{item.salary}
-																</Typography>
-															}
-															title = {
-																<h5>{item.title}</h5>
-															}
-															subheader = {
-																<h5>{item.location + '·' + item.company}</h5>
-															}>
-														</CardHeader>
+													<Card sx={{ width: 250, height:200 }}>
+														<CardContent>
+															<div style={{color:"#595959", fontSize:'20px'}} >
+																{item.title}
+															</div>
+															<div style={{color:"#FAAD00", fontSize:'18px'}} >
+																{item.salary}
+															</div>
+															<div style={{color:"#595959", fontSize:'14px'}} >
+																{item.location + '·' + item.company}
+															</div>
+														</CardContent>
+											
 														<CardActions>
-															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)}>learn more</Button>
+															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)} style={{fontSize:"14px", color:"#00C8AB"}}>了解更多</Button>
 														</CardActions>
 													</Card>
 												</Col>
 											))}
+											
 										</Row>
 									</div>
 									<div>
 										<Row gutter={15}>
 											{homepageRecommend.slice(0,6).map(item => (
 												<Col style={{padding : "20px 20px"}}>
-													<Card sx={{ width: 250, height: 180 }}>
-														<CardHeader
-															action={
-															// <IconButton aria-label="settings">
-															// 	<MoreVertIcon />
-															// </IconButton>
-																<Typography sx={{ fontSize: 23 }} color="#FAAD00">
-																	{item.salary}
-																</Typography>
-															}
-															title = {
-																<h5>{item.title}</h5>
-															}
-															subheader = {
-																<h5>{item.location + '·' + item.company}</h5>
-															}>
-														</CardHeader>
+													<Card sx={{ width: 250, height:200 }}>
+														<CardContent>
+															<div style={{color:"#595959", fontSize:'20px'}} >
+																{item.title}
+															</div>
+															<div style={{color:"#FAAD00", fontSize:'18px'}} >
+																{item.salary}
+															</div>
+															<div style={{color:"#595959", fontSize:'14px'}} >
+																{item.location + '·' + item.company}
+															</div>
+														</CardContent>
+											
 														<CardActions>
-															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)}>learn more</Button>
+															<Button size="small" onClick={()=>LinkToJobDetail(item.uid)} style={{ fontSize:"14px",color:"#00C8AB"}}>了解更多</Button>
 														</CardActions>
 													</Card>
 												</Col>
