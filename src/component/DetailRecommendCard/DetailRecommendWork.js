@@ -6,12 +6,11 @@ import { Card, CardContent, CardActions, Button } from "@mui/material";
 
 export const DetailRecommendCard = (props) => {
 	const {item: { uid, title, company, salary, province, location },} = props;
-	const URL = "http://localhost:3000/jobDetail/" + uid;
+	const URL = "http://localhost:3000/jobDetail/id=" + uid;
 
-	function doJump() {
-		console.log(props.item);
-		window["filter"] = props.item;
-		window.open(URL);
+	function doJump(url) {
+		console.log(url);
+		window.open(url);
 	}
 
 	return (
@@ -26,7 +25,7 @@ export const DetailRecommendCard = (props) => {
 				</div>
 			</CardContent>
 			<CardActions>
-				<Button onClick={doJump} style={{marginLeft:"5px", fontSize:"15px",fontWeight:"350", color:"#00C8AB"}}>
+				<Button onClick={doJump(URL)} style={{marginLeft:"5px", fontSize:"15px",fontWeight:"350", color:"#00C8AB"}}>
 				了解更多
 				</Button>
 			</CardActions>

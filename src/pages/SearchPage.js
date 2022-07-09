@@ -9,7 +9,7 @@ import { Navigate } from 'react-router-dom';
 import { Input,Radio,Layout,Form,Row,Col, Space, Carousel, Avatar} from 'antd';
 import { AudioOutlined } from '@ant-design/icons';
 import { UserOutlined } from '@ant-design/icons';
-import { Cascader, Select } from 'antd';
+import { Cascader } from 'antd';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -19,6 +19,16 @@ import Typography from '@mui/material/Typography';
 import axios from 'axios';
 import { TopSearchArea } from '../component/Search/TopSearchArea';
 import { padding } from '@mui/system';
+import { createUser, updateUser, addInitialUser, readUser } from '../utils/indexDb';
+import { Dialog } from '@mui/material';
+import { DialogTitle } from '@mui/material';
+import { DialogContent } from '@mui/material';
+import { DialogContentText } from '@mui/material';
+import { TextField } from '@mui/material';
+import { DialogActions } from '@mui/material';
+import { MenuItem } from '@mui/material';
+import { FormControl } from '@mui/material';
+import { Select } from '@mui/material';
 
 const { Search } = Input;
 const { Option } = Select;
@@ -75,13 +85,13 @@ const SearchPage = () => {
 		}
 	]);
 
-	const [userInfo, setUserInfo] = useState({
-		"intendedPosition": "前端",
-		"province":"浙江",
-		"location":"杭州",
-		"identity":"应届毕业生",
-		"education":"本科",              
-	});
+	// const [userInfo, setUserInfo] = useState({
+	// 	"intendedPosition": "前端",
+	// 	"province":"浙江",
+	// 	"location":"杭州",
+	// 	"identity":"应届毕业生",
+	// 	"education":"本科",              
+	// });
 
 	const [searchResult, setSearchResult] = useState([
 		{
@@ -102,12 +112,63 @@ const SearchPage = () => {
 		},
 	]);
 
+	//用户画像初始化
+	//createUser();
+	//const [userInfo,setUserInfo]=useState(readUser())
+	const [intendedP,setIntendedP]=useState("前端");
+	const [loc,setLoc]=useState("杭州");
+	const [pro,setPro]=useState("浙江");
+	const [edu,setEdu]=useState("本科");
+	const [iden,setIden]=useState("应届毕业生");
+
+	const handleChangePro = (event) =>{
+		setPro(event.target.value);
+	};
+	const handleChangeLoc = (event) =>{
+		setLoc(event.target.value);
+	};
+	const handleChangeInten = (event) =>{
+		setIntendedP(event.target.value);
+	};
+	const handleChangeIden = (event) =>{
+		setIden(event.target.value);
+	};
+	const handleChangeEdu = (event) =>{
+		setEdu(event.target.value);
+	};
+	const [open, setOpen] = useState(false);
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+	
+	const handleClose = () => {
+		setOpen(false);
+		updateUserInfo(intendedP,pro,loc,iden,edu);
+		
+	};
+	function readUserInfo(){
+		let result=readUser();
+		
+		setIntendedP(result.intendedPosition);
+		setLoc(result.location);
+		setPro(result.province);
+		setIden(result.identity);
+		setEdu(result.education);
+		console.log("result"+result);
+	}
+	function updateUserInfo(intendedP,pro,loc,iden,edu){
+		updateUser(intendedP,pro,loc,iden,edu);
+		//readUserInfo();
+		postUserInfo();
+	}
+
 	const LinkToJobDetail = (id) => {
 		console.log("http://localhost:3000/jobDetail/id=" + id);
 		window.open("http://localhost:3000/jobDetail/id=" + id);
 	};
 
 	React.useEffect(() => {
+		createUser();
 		const SearchContentChangeTmp = async () => {
 			//setContent(item.target.value);
 			console.log("content: " + content);
@@ -131,17 +192,18 @@ const SearchPage = () => {
 		// };
 		// getData();
 
-		const postUserInfo = async (userInfo) => {
+		const postUserInfo = async () => {
+			//let userInfo = readUser();
 			console.log("post info execute");
 			axios({
 				method: 'post',
 				url: 'http://localhost:8000/homepageRecommend/',
 				data: {
-					"intendedPosition": userInfo.intendedPosition,
-					"province": userInfo.province,
-					"location": userInfo.location,
-					"identity": userInfo.identity,
-					"education": userInfo.education,
+					"intendedPosition": intendedP,
+					"province": pro,
+					"location": loc,
+					"identity": iden,
+					"education": edu,
 				}
 			}).then(data => {
 				console.log(data.data.jobs);
@@ -150,7 +212,7 @@ const SearchPage = () => {
 				console.log(error);
 			});
 		};
-		postUserInfo(userInfo);
+		postUserInfo();
 
 		const ChangeStatusTmp = async () => {
 			console.log("current:",current, "content:",content);
@@ -177,6 +239,9 @@ const SearchPage = () => {
 		return (
 			<div style={{backgroundImage: `url(${pic})`,width:'100%',height:'48.75rem', backgroundSize:"cover"}}>
 				<Form name="basic"> 
+					<div style={{marginLeft: "1350px", padding:"10px"}} onClick = {handleClickOpen}>
+						<Avatar size={50} icon={<UserOutlined />} style = {{backgroundColor: '#87d068'}}/>
+					</div>
 					<div style={{display : "flex", flexDirection : "row", justifyContent : "center"}}>
 						<Form.Item style={{width : 1000, border :1}}>
 							<br/>
@@ -230,7 +295,7 @@ const SearchPage = () => {
 										<Row gutter={15}>
 											{homepageRecommend.slice(0,6).map(item => (
 												<Col style={{padding : "20px 20px"}}>
-													<Card sx={{ width: 250 }}>
+													<Card sx={{ width: 250, height: 180 }}>
 														<CardHeader
 															action={
 															// <IconButton aria-label="settings">
@@ -261,6 +326,63 @@ const SearchPage = () => {
 						
 						</Form.Item>
 					</div>
+					<Dialog open={open} onClose={handleClose}>
+						<DialogTitle style={{color:'#71D9BB', fontSize:'25px', textAlign:'center' }}>用户信息</DialogTitle>
+						<DialogContent>
+							<DialogContentText>
+								请填写您的用户画像，以便于我们为您准备个性化推荐~
+							</DialogContentText>
+							<div style={{marginBottom:'10px', marginTop:'10px'}}>
+								<TextField
+									autoFocus
+									margin="normal"
+									id="province"
+									label="省份(ex.浙江)"
+									variant="standard"
+									value={pro}
+									onChange={handleChangePro}
+								/>
+								<TextField
+									autoFocus
+									margin="normal"
+									id="city"
+									label="城市(ex.杭州)"
+									variant="standard"
+									value={loc}
+									onChange={handleChangeLoc}
+								/>
+							</div>
+							<div style={{marginBottom:'10px', marginTop:'10px'}}>
+								<Select
+									labelId="education"
+									id="education"
+									label="Age"
+									value={edu}
+									onChange={handleChangeEdu}
+									variant="standard"
+								>
+									<MenuItem value={"大专"}>大专</MenuItem>
+									<MenuItem value={"本科"}>本科及以上</MenuItem>
+								</Select>
+								<Select
+									labelId="education"
+									id="education"
+									label="Age"
+									value={iden}
+									onChange={handleChangeIden}
+									variant="standard"
+								>
+									<MenuItem value={"在校生"}>在校生</MenuItem>
+									<MenuItem value={"应届毕业生"}>应届毕业生</MenuItem>
+									<MenuItem value={"社招人士"}>社招人士</MenuItem>
+								</Select>
+							</div>
+							
+						</DialogContent>
+						<DialogActions>
+							<Button onClick={handleClose}>保存</Button>
+						</DialogActions>
+					</Dialog>
 				/</Form>
 			</div>
 			

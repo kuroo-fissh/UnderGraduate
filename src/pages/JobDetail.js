@@ -12,11 +12,6 @@ import { DetailRecommendCard } from '../component/DetailRecommendCard/DetailReco
 const jobDetail = () => {
 	//从url中获取id
 	const id = window.location.href.split("=")[1];
-
-	// useEffect(() => {
-	// 	upload();
-	// });
-	
 	
 	const [detail,setDetail]=useState({
 		"uid": "1",
@@ -56,12 +51,12 @@ const jobDetail = () => {
 		{
 			"uid":"1",
 			"title":"java面经",
-			"url":"http://localhost:3000/SearchPage",
+			"link":"http://localhost:3000/SearchPage",
 		},
 		{
 			"uid":"2",
 			"title":"Python面经",
-			"url":"http://localhost:3000/SearchPage",
+			"link":"http://localhost:3000/SearchPage",
 		},
 	]);
 
@@ -105,55 +100,6 @@ const jobDetail = () => {
 		};
 		getRecommendEx(id);
 	},[]);
-
-	// const detail = {
-	// 	"id": "1",
-	// 	"title": "前端开发工程师",
-	// 	"company": "百度",
-	// 	"salary": "10k-20k",
-	// 	"location": "中南海",
-	// 	"academic_bg": "本科及以上",
-	// 	"exp_bg": "工作三年及以上",
-	// 	"corporation_scale": "10000人以上",
-	// 	"business_scope": "社交软件、游戏开发、音乐平台",
-	// 	"time": "2022.6.23",
-	// 	"url": "http://localhost:3000/SearchPage",
-	// 	"province": "北京",
-	// 	"source": "牛客网",
-	// 	"requirement": "这里是任职要求",
-	// 	"responsibility": "这里是工作职责",
-	// };
-
-	// const recommendWork = [
-	// 	{
-	// 		"id": "1",
-	// 		"title": "前端开发工程师",
-	// 		"company": "阿里",
-	// 		"salary": "15k-20k",
-	// 		"province": "浙江",
-	// 		"location": "杭州",
-	// 	},{
-	// 		"id": "2",
-	// 		"title": "前端开发工程师",
-	// 		"company": "阿里",
-	// 		"salary": "150k-200k",
-	// 		"province": "浙江",
-	// 		"location": "杭州",
-	// 	},
-	// ];
-
-	// const recommendEx = [
-	// 	{
-	// 		"id":"1",
-	// 		"title":"java面经",
-	// 		"url":"http://localhost:3000/SearchPage",
-	// 	},
-	// 	{
-	// 		"id":"2",
-	// 		"title":"Python面经",
-	// 		"url":"http://localhost:3000/SearchPage",
-	// 	},
-	// ];
 
 	function doJumpEx(url) {
 		window.open(url);
