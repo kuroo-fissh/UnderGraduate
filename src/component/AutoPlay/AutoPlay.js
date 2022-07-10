@@ -47,9 +47,9 @@ export const AutoPlay = () => {
 				<div onClick={() => {window.open("https://bbs.csdn.net");} }>
 					<h3 style={CSDNcodeContentStyle}>.</h3>
 				</div>
-				<div onClick={info }>
+				{/* <div onClick={info }>
 					<h3 style={AdcodeContentStyle}>.</h3>
-				</div>
+				</div> */}
 			</Carousel>
 		</div>
 	);
