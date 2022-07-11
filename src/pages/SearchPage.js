@@ -260,7 +260,7 @@ const SearchPage = () => {
 
 	if (current === 'Search') {
 		return (
-			<div style={{backgroundImage: `url(${pic})`,width:'100%',height:'48.75rem', backgroundSize:"cover"}}>
+			<div style={{backgroundImage: `url(${pic})`,width:'100%',height:'55rem', backgroundSize:"cover"}}>
 				<Form name="basic"> 
 					<div style={{marginLeft: "1350px", padding:"10px"}} onClick = {handleClickOpen}>
 						<Avatar size={50} icon={<UserOutlined />} style = {{backgroundColor: '#87d068'}}/>

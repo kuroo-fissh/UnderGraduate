@@ -1,18 +1,18 @@
 import React from 'react';
-import { Carousel, message} from 'antd';
+import { Carousel} from 'antd';
 import leetcodepic from "../../image/leetcode.png";
 import csdnpic from "../../image/csdn.png";
-import adpic from "../../image/ad.png";
+//import adpic from "../../image/ad.png";
 
 export const AutoPlay = () => {
 
-	const AdcodeContentStyle = {
-		height: '160px',
-		color: '#fff',
-		lineHeight: '160px',
-		textAlign: 'center',
-		backgroundImage: `url(${adpic})` 
-	};
+	// const AdcodeContentStyle = {
+	// 	height: '160px',
+	// 	color: '#fff',
+	// 	lineHeight: '160px',
+	// 	textAlign: 'center',
+	// 	backgroundImage: `url(${adpic})` 
+	// };
 
   
 	const LeetcodecontentStyle = {
@@ -31,13 +31,13 @@ export const AutoPlay = () => {
 	};
 
 
-	const key = 'updatable';
-	const info = () => {
-		message.loading({ content: 'Try contacting...', key });
-		setTimeout(() => {
-			message.warn({ content: 'Unfortunately contact failed but im not really sorry about that lmao', key, duration: 2 });
-		}, 1000);
-	};
+	//const key = 'updatable';
+	// const info = () => {
+	// 	message.loading({ content: 'Try contacting...', key });
+	// 	setTimeout(() => {
+	// 		message.warn({ content: 'Unfortunately contact failed but im not really sorry about that lmao', key, duration: 2 });
+	// 	}, 1000);
+	// };
 	return (
 		<div style={{padding: "10px 40px"}}>
 			<Carousel autoplay>
